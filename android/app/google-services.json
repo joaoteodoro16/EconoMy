@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "853028593041",
+    "project_id": "economy-d982f",
+    "storage_bucket": "economy-d982f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:853028593041:android:552411d0d4cae9725fce30",
+        "android_client_info": {
+          "package_name": "br.com.joaoteodoro.economy_v2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEzmKzt4X_B1ecpGRf08wgA1UH9O1ZdAE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

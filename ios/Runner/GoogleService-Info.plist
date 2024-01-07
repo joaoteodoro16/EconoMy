@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAxolvF3fzKiYg_lFgr9uH95PUBjrnlg-w</string>
+	<key>GCM_SENDER_ID</key>
+	<string>853028593041</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>br.com.joaoteodoro.economyV2</string>
+	<key>PROJECT_ID</key>
+	<string>economy-d982f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>economy-d982f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:853028593041:ios:93207af4ca0595275fce30</string>
+</dict>
+</plist>
