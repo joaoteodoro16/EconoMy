@@ -55,7 +55,7 @@ class _LoginFormState extends ModularState<_LoginForm, LoginController> {
 
                 if(validate){
                   await controller.signIn(email: _emailEC.text, password: _senhaEC.text);
-                  Navigator.of(context).pushNamedAndRemoveUntil('/home/', (route) => false);
+                  //Navigator.of(context).pushNamedAndRemoveUntil('/home/', (route) => false, arguments: Wallet(value: 0));
                 }
             },
             title: 'Entrar',

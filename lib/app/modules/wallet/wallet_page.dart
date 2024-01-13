@@ -21,6 +21,25 @@ class _WalletPageState extends ModularState<WalletPage, WalletController> {
   final _valueEC = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+
+  @override
+  void initState() {
+    
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+        
+    });
+
+
+    super.initState();
+  }
+
+
+  @override
+  void dispose() {
+    _valueEC.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +82,8 @@ class _WalletPageState extends ModularState<WalletPage, WalletController> {
                           value:
                               ValueUtil.convertStringToDouble(_valueEC.text)));
                     }
-                    Modular.to.navigate('/home/', arguments: widget.wallet);
+                    // ignore: use_build_context_synchronously
+                    Navigator.of(context).pushNamedAndRemoveUntil('/home/', (route) => false, arguments: widget.wallet ?? Wallet(value: ValueUtil.convertStringToDouble(_valueEC.text)) );
                   }
                 },
               )

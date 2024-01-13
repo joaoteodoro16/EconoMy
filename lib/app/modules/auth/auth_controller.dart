@@ -1,5 +1,4 @@
 import 'package:economy_v2/app/core/models/wallet.dart';
-import 'package:economy_v2/app/core/ui/messages.dart';
 import 'package:economy_v2/app/repositories/wallet/wallet_repository.dart';
 import 'package:economy_v2/app/services/user/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';

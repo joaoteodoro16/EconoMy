@@ -15,7 +15,7 @@ class WalletModule extends Module{
 
   @override
   List<ModularRoute> get routes => [
-    ChildRoute('/', child: (context, args) => const WalletPage(),)
+    ChildRoute('/', child: (context, args) =>  WalletPage(wallet: args.data,),)
   ];
 
 

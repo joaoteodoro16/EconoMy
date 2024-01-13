@@ -13,8 +13,9 @@ class AppModule extends Module{
   List<ModularRoute> get routes => [
     ModuleRoute('/auth', module: AuthModule()),
     ModuleRoute('/home', module: HomeModule()),
+    ModuleRoute('/wallet', module: WalletModule()),
     ModuleRoute('/bill', module: BillModule()),
-    ModuleRoute('/wallet', module: WalletModule())
+    
   ];
 
 }

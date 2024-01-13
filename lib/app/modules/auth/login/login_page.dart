@@ -1,4 +1,5 @@
 import 'package:economy_v2/app/core/app_config.dart';
+import 'package:economy_v2/app/core/models/wallet.dart';
 import 'package:economy_v2/app/core/widgets/button_default.dart';
 import 'package:economy_v2/app/modules/auth/login/login_controller.dart';
 import 'package:flutter/material.dart';
