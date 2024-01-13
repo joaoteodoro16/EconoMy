@@ -25,7 +25,7 @@ class _SplashAuthPageState extends State<SplashAuthPage> {
           }
       }else{
         Modular.to.navigate('/auth/login/');
-      }
+      } 
     });
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
