@@ -9,12 +9,12 @@ part 'auth_controller.g.dart';
 class AuthController = AuthControllerBase with _$AuthController;
 
 abstract class AuthControllerBase with Store {
-  final UserService _userService;
+
   final WalletRepository _repository;
 
   AuthControllerBase(
       {required UserService userService, required WalletRepository repository})
-      : _userService = userService,
+      : 
         _repository = repository;
 
   @readonly

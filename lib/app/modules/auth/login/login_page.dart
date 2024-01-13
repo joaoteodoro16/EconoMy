@@ -1,5 +1,4 @@
 import 'package:economy_v2/app/core/app_config.dart';
-import 'package:economy_v2/app/core/models/wallet.dart';
 import 'package:economy_v2/app/core/widgets/button_default.dart';
 import 'package:economy_v2/app/modules/auth/login/login_controller.dart';
 import 'package:flutter/material.dart';
@@ -46,18 +45,18 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                           fontSize: 29),
                     ),
                     const _LoginForm(),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SignInButton(
-                      Buttons.Google,
-                      padding: const EdgeInsets.all(3),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      text: "Entrar com Google",
-                      onPressed: () {},
-                    ),
+                    // const SizedBox(
+                    //   height: 10,
+                    // ),
+                    // SignInButton(
+                    //   Buttons.Google,
+                    //   padding: const EdgeInsets.all(3),
+                    //   shape: RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.circular(20),
+                    //   ),
+                    //   text: "Entrar com Google",
+                    //   onPressed: () {},
+                    // ),
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).pushNamed('/auth/register');

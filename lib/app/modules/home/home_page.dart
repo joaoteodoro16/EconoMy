@@ -52,7 +52,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           await controller.getAll(widget.wallet);
         },
         backgroundColor: AppConfig.secondaryColor,
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, color: Colors.white,),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {

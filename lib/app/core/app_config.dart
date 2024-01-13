@@ -12,7 +12,6 @@ class AppConfig {
   static Color get orangeColor => const Color(0xfff4a261);
   static Color get darkOrangeColor => const Color(0xffe76f51);
 
-
   static ThemeData get theme => ThemeData(
     primaryColor: primaryColor,
     appBarTheme: AppBarTheme(
@@ -23,9 +22,8 @@ class AppConfig {
       ),
       iconTheme: const IconThemeData(
         color: Colors.white
-      )
-      
-    )
+      ),
+    ),
   );
 
 }

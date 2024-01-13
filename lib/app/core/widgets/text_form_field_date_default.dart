@@ -3,7 +3,6 @@ import 'package:economy_v2/app/core/utils/DateUtil.dart';
 import 'package:economy_v2/app/core/utils/MaskUtil.dart';
 import 'package:economy_v2/app/core/widgets/text_form_field_default.dart';
 import 'package:flutter/material.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class TextFormFieldDateDefault extends StatefulWidget {
   final TextEditingController? controller;
@@ -18,7 +17,7 @@ class TextFormFieldDateDefault extends StatefulWidget {
 class _TextFormFieldDateDefaultState extends State<TextFormFieldDateDefault> {
   
 
-  DateTime _selectedDate = DateTime.now();
+  final DateTime _selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
