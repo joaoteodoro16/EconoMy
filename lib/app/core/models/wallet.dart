@@ -5,7 +5,7 @@ import 'dart:convert';
 class Wallet {
   
   final int? id;
-  final double value;
+   double value;
   
   Wallet({
     this.id,

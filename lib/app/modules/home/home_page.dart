@@ -30,9 +30,11 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   @override
   void initState() {
     reaction((_) => controller.bills, (bills) {});
+    
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await controller.getAll(widget.wallet);
+      controller.setWalletValue(widget.wallet);  
+      await controller.getAll();
     });
 
     super.initState();
@@ -42,14 +44,14 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppConfig.primaryColor,
-      drawer: const _HomeDrawer(),
+      drawer: _HomeDrawer(controller: controller),
       appBar: AppBar(
         elevation: 0,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await Navigator.of(context).pushNamed('/bill/');
-          await controller.getAll(widget.wallet);
+          await controller.getAll();
         },
         backgroundColor: AppConfig.secondaryColor,
         child: const Icon(Icons.add, color: Colors.white,),
@@ -104,7 +106,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                     onTapEdit: (context) async {
                                       await Navigator.of(context)
                                           .pushNamed('/bill', arguments: bill);
-                                      await controller.getAll(widget.wallet);
+                                      await controller.getAll();
                                     },
                                     onTapDelete: (context) async {
                                       controller.deleteById(bill: bill);

@@ -24,6 +24,9 @@ abstract class HomeControllerBase with Store {
   @observable
   double _totalRemaining = 0;
 
+  @observable
+  Wallet? _wallet;
+
   @computed
   double get totalWallet => _totalWallet;
   @computed
@@ -33,13 +36,14 @@ abstract class HomeControllerBase with Store {
 
   @computed
   List<Bill> get bills => _bills;
-
+  @computed
+  Wallet? get wallet => _wallet;
 
   @action
-  Future<void> getAll(Wallet wallet) async {
+  Future<void> getAll() async {
     try {
       _bills = await _service.getAll();
-      _totalWallet = wallet.value;
+      _totalWallet = _wallet!.value;
       calculateValues();
     } on Exception catch (e) {
       Messages.alert(e.toString());
@@ -60,16 +64,18 @@ abstract class HomeControllerBase with Store {
   }
 
   @action
-  void calculateValues(){
-      _totalRemaining = 0;
-      _totalBill = 0; 
+  void calculateValues() {
+    _totalRemaining = 0;
+    _totalBill = 0;
 
-      for (var bill in _bills) {
-        _totalBill = _totalBill + bill.value;        
-      }
-      _totalRemaining = _totalWallet - _totalBill;
-
+    for (var bill in _bills) {
+      _totalBill = _totalBill + bill.value;
+    }
+    _totalRemaining = _totalWallet - _totalBill;
   }
 
- 
+  @action
+  void setWalletValue(Wallet wallet){
+    _wallet = wallet;
+  }
 }

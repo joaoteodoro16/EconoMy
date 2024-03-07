@@ -37,6 +37,13 @@ mixin _$HomeController on HomeControllerBase, Store {
       (_$billsComputed ??= Computed<List<Bill>>(() => super.bills,
               name: 'HomeControllerBase.bills'))
           .value;
+  Computed<Wallet?>? _$walletComputed;
+
+  @override
+  Wallet? get wallet =>
+      (_$walletComputed ??= Computed<Wallet?>(() => super.wallet,
+              name: 'HomeControllerBase.wallet'))
+          .value;
 
   late final _$_billsAtom =
       Atom(name: 'HomeControllerBase._bills', context: context);
@@ -102,12 +109,28 @@ mixin _$HomeController on HomeControllerBase, Store {
     });
   }
 
+  late final _$_walletAtom =
+      Atom(name: 'HomeControllerBase._wallet', context: context);
+
+  @override
+  Wallet? get _wallet {
+    _$_walletAtom.reportRead();
+    return super._wallet;
+  }
+
+  @override
+  set _wallet(Wallet? value) {
+    _$_walletAtom.reportWrite(value, super._wallet, () {
+      super._wallet = value;
+    });
+  }
+
   late final _$getAllAsyncAction =
       AsyncAction('HomeControllerBase.getAll', context: context);
 
   @override
-  Future<void> getAll(Wallet wallet) {
-    return _$getAllAsyncAction.run(() => super.getAll(wallet));
+  Future<void> getAll() {
+    return _$getAllAsyncAction.run(() => super.getAll());
   }
 
   late final _$deleteByIdAsyncAction =
@@ -133,12 +156,24 @@ mixin _$HomeController on HomeControllerBase, Store {
   }
 
   @override
+  void setWalletValue(Wallet wallet) {
+    final _$actionInfo = _$HomeControllerBaseActionController.startAction(
+        name: 'HomeControllerBase.setWalletValue');
+    try {
+      return super.setWalletValue(wallet);
+    } finally {
+      _$HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 totalWallet: ${totalWallet},
 totalBill: ${totalBill},
 totalRemaining: ${totalRemaining},
-bills: ${bills}
+bills: ${bills},
+wallet: ${wallet}
     ''';
   }
 }

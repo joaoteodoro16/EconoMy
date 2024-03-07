@@ -1,3 +1,4 @@
+import 'package:asuka/core/consts.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:economy_v2/app/core/models/wallet.dart';
 import 'package:economy_v2/app/core/utils/ValueUtil.dart';
@@ -25,10 +26,9 @@ class _WalletPageState extends ModularState<WalletPage, WalletController> {
   @override
   void initState() {
     
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-        
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async { 
+      _valueEC.text = widget.wallet?.value.toStringAsFixed(2) ?? "";
     });
-
 
     super.initState();
   }
@@ -75,15 +75,17 @@ class _WalletPageState extends ModularState<WalletPage, WalletController> {
                 onPressed: () async {
                   final validate = _formKey.currentState?.validate() ?? false;
                   if (validate) {
+                    
                     if (widget.wallet != null) {
+                      widget.wallet!.value = ValueUtil.convertStringToDouble(_valueEC.text);
                       await controller.updateWallet(widget.wallet!);
+                      Navigator.of(context).pop();
                     } else {
                       await controller.registerWallet(Wallet(
                           value:
                               ValueUtil.convertStringToDouble(_valueEC.text)));
+                      Navigator.of(context).pushNamedAndRemoveUntil('/home/', (route) => false, arguments: widget.wallet ?? Wallet(value: ValueUtil.convertStringToDouble(_valueEC.text)) );        
                     }
-                    // ignore: use_build_context_synchronously
-                    Navigator.of(context).pushNamedAndRemoveUntil('/home/', (route) => false, arguments: widget.wallet ?? Wallet(value: ValueUtil.convertStringToDouble(_valueEC.text)) );
                   }
                 },
               )
