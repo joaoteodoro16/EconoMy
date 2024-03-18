@@ -23,9 +23,12 @@ abstract class HomeControllerBase with Store {
   double _totalBill = 0;
   @observable
   double _totalRemaining = 0;
-
   @observable
   Wallet? _wallet;
+  @observable
+  int _monthFilter = DateTime.now().month;
+  @observable
+  int _yearFilter = DateTime.now().year;
 
   @computed
   double get totalWallet => _totalWallet;
@@ -38,6 +41,11 @@ abstract class HomeControllerBase with Store {
   List<Bill> get bills => _bills;
   @computed
   Wallet? get wallet => _wallet;
+  @computed
+  int get monthFilter => _monthFilter;
+
+  @computed
+  int get yearFilter => _yearFilter;
 
   @action
   Future<void> getAll() async {
@@ -75,7 +83,23 @@ abstract class HomeControllerBase with Store {
   }
 
   @action
-  void setWalletValue(Wallet wallet){
+  void setWalletValue(Wallet wallet) {
     _wallet = wallet;
+  }
+
+  @action
+  void setDateFilter({int? year, int? month}) async {
+    try {
+      _bills = await _service.getByDateFilter(
+          year ?? _yearFilter, month ?? _monthFilter);
+      _totalWallet = _wallet!.value;
+      calculateValues();
+
+      _monthFilter = month ?? _monthFilter;
+      _yearFilter = year ?? _yearFilter;
+
+    } on Exception catch (e) {
+      Messages.alert(e.toString());
+    }
   }
 }

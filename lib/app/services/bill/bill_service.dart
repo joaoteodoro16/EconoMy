@@ -5,4 +5,5 @@ abstract class BillService {
   Future<void> createBill({required Bill bill});
   Future<void> deleteById({required Bill bill});
   Future<void> updateBill({required Bill bill});
+  Future<List<Bill>> getByDateFilter(int year, int month);
 }

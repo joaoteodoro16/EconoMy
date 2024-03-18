@@ -85,4 +85,33 @@ class BillRepositoryImpl extends BillRepository {
       throw Exception("Erro ao editar a despesa!");
     }
   }
+  
+  @override
+  Future<List<Bill>> getByDateFilter(DateTime startDate, DateTime endDate) async{
+    try {
+      _db = await DB.instance.database;
+
+      final result = await _db.query('bill',where: 'expireIn BETWEEN ? AND ?',orderBy: 'expireIn DESC',
+      whereArgs: [
+        startDate.toIso8601String(),
+        endDate.toIso8601String(),
+      ]);
+
+      List<Bill> bills = [];
+      
+      if (result.isNotEmpty) {
+        for (var bill in result) {
+          bills.add(Bill.fromMapCategory(bill));
+        }
+      }
+
+      return bills;
+
+    } on Exception catch (e) {
+      Logger().e("BillRepository - getByDateFilter ", error: e.toString());
+      throw Exception("Erro ao buscar as despesas");
+    }
+  }
+  
+  
 }

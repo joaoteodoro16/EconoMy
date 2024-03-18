@@ -31,10 +31,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   void initState() {
     reaction((_) => controller.bills, (bills) {});
     
-
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       controller.setWalletValue(widget.wallet);  
-      await controller.getAll();
+      controller.setDateFilter();
     });
 
     super.initState();
@@ -51,7 +50,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await Navigator.of(context).pushNamed('/bill/');
-          await controller.getAll();
+          controller.setDateFilter();
         },
         backgroundColor: AppConfig.secondaryColor,
         child: const Icon(Icons.add, color: Colors.white,),
@@ -92,7 +91,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     ),
                     child: Column(
                       children: [
-                        const _HomeDateFilter(),
+                        _HomeDateFilter(controller: controller,),
                         Expanded(
                           child: Observer(
                             builder: (context) {
@@ -106,7 +105,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                     onTapEdit: (context) async {
                                       await Navigator.of(context)
                                           .pushNamed('/bill', arguments: bill);
-                                      await controller.getAll();
+                                      controller.setDateFilter();
                                     },
                                     onTapDelete: (context) async {
                                       controller.deleteById(bill: bill);

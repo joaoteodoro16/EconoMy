@@ -21,4 +21,20 @@ class BillServiceImpl extends BillService {
   @override
   Future<void> updateBill({required Bill bill})=> _repository.updateBill(bill: bill);
   
+  @override
+  Future<List<Bill>> getByDateFilter(int age, int month){
+    
+    DateTime startDate = DateTime(age,month,1);
+    DateTime endDate;
+
+    if (month == 12) {
+      endDate = DateTime(age + 1, 1, 1).subtract(const Duration(days: 1));
+    } else {
+      endDate = DateTime(age, month + 1, 1).subtract(const Duration(days: 1));
+    }
+    
+    return _repository.getByDateFilter(startDate, endDate);
+  }
+
+  
 }
