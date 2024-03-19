@@ -1,3 +1,4 @@
+import 'package:economy_v2/app/core/app_config.dart';
 import 'package:economy_v2/app/modules/auth/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -35,8 +36,12 @@ class _SplashAuthPageState extends State<SplashAuthPage> {
    @override
    Widget build(BuildContext context) {
        return Scaffold(
-           appBar: AppBar(title: const Text('Splash Auth Page'),),
-           body: Container(),
+           body: Container(
+            color: AppConfig.primaryColor,
+             child:  Center(
+              child: Image.asset("assets/images/white-dollar.png", height: 100) ,
+             ),
+           ),
        );
   }
 }
