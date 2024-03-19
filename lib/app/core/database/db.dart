@@ -22,7 +22,7 @@ class DB {
   _initDatabase() async {
     return await openDatabase(
       join(await getDatabasesPath(), 'economy.db'),
-      version: 2,
+      version: 4,
       onCreate: _onCreate,
     );
   }
@@ -30,6 +30,8 @@ class DB {
   _onCreate(db, version)async {
     await db.execute(_bill);
     await db.execute(_wallet);
+    await db.execute(_walletYear);
+    await db.execute(_walletMonth);
   }
 
   // quantidade TEXT -> depois converte para double
@@ -51,6 +53,14 @@ class DB {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       value REAL NOT NULL
     );
+''';
+
+ String get _walletYear => '''
+    ALTER TABLE wallet ADD COLUMN year INTEGER
+''';
+
+String get _walletMonth => '''
+    ALTER TABLE wallet ADD COLUMN month INTEGER
 ''';
   
 }

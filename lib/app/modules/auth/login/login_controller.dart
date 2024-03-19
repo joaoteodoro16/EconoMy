@@ -18,5 +18,4 @@ abstract class LoginControllerBase with Store {
     await _service.signIn(email: email, password: password);
   }
 
-
 }

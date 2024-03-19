@@ -19,8 +19,8 @@ part 'widgets/home_card_bill.dart';
 part 'widgets/home_date_filter.dart';
 
 class HomePage extends StatefulWidget {
-  final Wallet wallet;
-  const HomePage({super.key, required this.wallet});
+  final Wallet? wallet;
+  const HomePage({super.key, this.wallet});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -32,7 +32,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     reaction((_) => controller.bills, (bills) {});
     
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      controller.setWalletValue(widget.wallet);  
+      await controller.setWalletValue();  
       controller.setDateFilter();
     });
 
@@ -73,8 +73,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                             controller.totalBill.toStringAsFixed(2)),
                         totalRemaining: double.parse(
                             controller.totalRemaining.toStringAsFixed(2)),
-                        totalWallet: double.parse(
-                            widget.wallet.value.toStringAsFixed(2)),
+                        totalWallet: controller.wallet?.value ?? 0,
                       ),
                     );
                   },

@@ -9,45 +9,56 @@ class WalletRepositoryImpl extends WalletRepository {
   late Database _db;
 
   @override
-  Future<Wallet?> getAll() async {
+  Future<void> save(Wallet wallet) async {
+    try {
+      _db = await DB.instance.database;
+
+      final search =
+          await _db.query("wallet", where: "month = ${wallet.month}");
+
+      if (search.isNotEmpty) {
+        await _db.update(
+          'wallet',
+          {
+            'value': wallet.value,
+            'month': wallet.month,
+            'year': wallet.year,
+          },
+          where: 'id = ?',
+          whereArgs: [search[0]['id']],
+        );
+      } else {
+        await _db.insert(
+          'wallet',
+          {
+            'value': wallet.value,
+            'month': wallet.month,
+            'year': wallet.year,
+          },
+        );
+      }
+    } on Exception catch (e) {
+      Logger().e("WalletRepositoryImpl - save ", error: e.toString());
+      throw Exception("Erro ao salvar a carteira!");
+    }
+  }
+
+  Future<Wallet?> getByMonthAndYear(int year, int month) async {
     try {
       _db = await DB.instance.database;
 
       Wallet? wallet;
 
-      final result = await _db.query("wallet");
+      final result = await _db.query("wallet",
+          where: "month = ? AND year = ?", whereArgs: [month, year]);
 
       if (result.isNotEmpty) {
         wallet = Wallet.fromMap(result[0]);
       }
       return wallet;
     } on Exception catch (e) {
-      Logger().e("WalletRepositoryImpl - getAll ", error: e.toString());
-      throw Exception("Erro ao buscar informações da carteira!");
-    }
-  }
-
-  @override
-  Future<void> registerWallet(Wallet wallet) async {
-    try {
-      _db = await DB.instance.database;
-
-      await _db.insert('wallet', {'value': wallet.value});
-    } on Exception catch (e) {
-      Logger().e("WalletRepositoryImpl - registerWallet ", error: e.toString());
-      throw Exception("Erro ao cadastrar carteira");
-    }
-  }
-
-  @override
-  Future<void> updateWallet(Wallet wallet) async {
-    try {
-      _db = await DB.instance.database;
-      await _db.update('wallet', {'value': wallet.value},
-          where: 'id = ?', whereArgs: [wallet.id]);
-    } on Exception catch (e) {
-      Logger().e("WalletRepositoryImpl - updateWallet ", error: e.toString());
-      throw Exception("Erro ao atualiazar carteira");
+          Logger().e("WalletRepositoryImpl - getByMonthAndYear ", error: e.toString());
+          throw Exception("Erro ao buscar informações da carteira!");
     }
   }
 }

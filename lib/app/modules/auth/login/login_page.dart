@@ -45,18 +45,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                           fontSize: 29),
                     ),
                     const _LoginForm(),
-                    // const SizedBox(
-                    //   height: 10,
-                    // ),
-                    // SignInButton(
-                    //   Buttons.Google,
-                    //   padding: const EdgeInsets.all(3),
-                    //   shape: RoundedRectangleBorder(
-                    //     borderRadius: BorderRadius.circular(20),
-                    //   ),
-                    //   text: "Entrar com Google",
-                    //   onPressed: () {},
-                    // ),
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).pushNamed('/auth/register');

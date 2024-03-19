@@ -28,7 +28,6 @@ abstract class AuthControllerBase with Store {
 
     auth.authStateChanges().listen((user) async{
       if (user != null) {
-        wallet = await _repository.getAll();
         _userIsAuthenticated = true;
       } else {
         _userIsAuthenticated = false;

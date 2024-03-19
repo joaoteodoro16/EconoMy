@@ -44,6 +44,20 @@ mixin _$HomeController on HomeControllerBase, Store {
       (_$walletComputed ??= Computed<Wallet?>(() => super.wallet,
               name: 'HomeControllerBase.wallet'))
           .value;
+  Computed<int>? _$monthFilterComputed;
+
+  @override
+  int get monthFilter =>
+      (_$monthFilterComputed ??= Computed<int>(() => super.monthFilter,
+              name: 'HomeControllerBase.monthFilter'))
+          .value;
+  Computed<int>? _$yearFilterComputed;
+
+  @override
+  int get yearFilter =>
+      (_$yearFilterComputed ??= Computed<int>(() => super.yearFilter,
+              name: 'HomeControllerBase.yearFilter'))
+          .value;
 
   late final _$_billsAtom =
       Atom(name: 'HomeControllerBase._bills', context: context);
@@ -125,6 +139,38 @@ mixin _$HomeController on HomeControllerBase, Store {
     });
   }
 
+  late final _$_monthFilterAtom =
+      Atom(name: 'HomeControllerBase._monthFilter', context: context);
+
+  @override
+  int get _monthFilter {
+    _$_monthFilterAtom.reportRead();
+    return super._monthFilter;
+  }
+
+  @override
+  set _monthFilter(int value) {
+    _$_monthFilterAtom.reportWrite(value, super._monthFilter, () {
+      super._monthFilter = value;
+    });
+  }
+
+  late final _$_yearFilterAtom =
+      Atom(name: 'HomeControllerBase._yearFilter', context: context);
+
+  @override
+  int get _yearFilter {
+    _$_yearFilterAtom.reportRead();
+    return super._yearFilter;
+  }
+
+  @override
+  set _yearFilter(int value) {
+    _$_yearFilterAtom.reportWrite(value, super._yearFilter, () {
+      super._yearFilter = value;
+    });
+  }
+
   late final _$getAllAsyncAction =
       AsyncAction('HomeControllerBase.getAll', context: context);
 
@@ -139,6 +185,23 @@ mixin _$HomeController on HomeControllerBase, Store {
   @override
   Future<void> deleteById({required Bill bill}) {
     return _$deleteByIdAsyncAction.run(() => super.deleteById(bill: bill));
+  }
+
+  late final _$setWalletValueAsyncAction =
+      AsyncAction('HomeControllerBase.setWalletValue', context: context);
+
+  @override
+  Future<void> setWalletValue() {
+    return _$setWalletValueAsyncAction.run(() => super.setWalletValue());
+  }
+
+  late final _$setDateFilterAsyncAction =
+      AsyncAction('HomeControllerBase.setDateFilter', context: context);
+
+  @override
+  Future<void> setDateFilter({int? year, int? month}) {
+    return _$setDateFilterAsyncAction
+        .run(() => super.setDateFilter(year: year, month: month));
   }
 
   late final _$HomeControllerBaseActionController =
@@ -156,24 +219,15 @@ mixin _$HomeController on HomeControllerBase, Store {
   }
 
   @override
-  void setWalletValue(Wallet wallet) {
-    final _$actionInfo = _$HomeControllerBaseActionController.startAction(
-        name: 'HomeControllerBase.setWalletValue');
-    try {
-      return super.setWalletValue(wallet);
-    } finally {
-      _$HomeControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 totalWallet: ${totalWallet},
 totalBill: ${totalBill},
 totalRemaining: ${totalRemaining},
 bills: ${bills},
-wallet: ${wallet}
+wallet: ${wallet},
+monthFilter: ${monthFilter},
+yearFilter: ${yearFilter}
     ''';
   }
 }

@@ -1,5 +1,7 @@
 import 'package:asuka/core/consts.dart';
 import 'package:brasil_fields/brasil_fields.dart';
+import 'package:economy_v2/app/core/app_config.dart';
+import 'package:economy_v2/app/core/constants.dart';
 import 'package:economy_v2/app/core/models/wallet.dart';
 import 'package:economy_v2/app/core/utils/ValueUtil.dart';
 import 'package:economy_v2/app/core/widgets/button_default.dart';
@@ -11,8 +13,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:validatorless/validatorless.dart';
 
 class WalletPage extends StatefulWidget {
-  final Wallet? wallet;
-  const WalletPage({super.key, this.wallet});
+  
+  const WalletPage({super.key});
 
   @override
   State<WalletPage> createState() => _WalletPageState();
@@ -22,17 +24,14 @@ class _WalletPageState extends ModularState<WalletPage, WalletController> {
   final _valueEC = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  String selectedMonth = 'Janeiro';
+  String selectedYear = '2024';
 
   @override
   void initState() {
-    
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async { 
-      _valueEC.text = widget.wallet?.value.toStringAsFixed(2) ?? "";
-    });
 
     super.initState();
   }
-
 
   @override
   void dispose() {
@@ -68,6 +67,98 @@ class _WalletPageState extends ModularState<WalletPage, WalletController> {
                 ]),
               ),
               const SizedBox(
+                height: 10,
+              ),
+              Container(
+                padding: const EdgeInsets.only(
+                    top: 8, bottom: 8, right: 10, left: 10),
+                decoration: BoxDecoration(
+                    color: AppConfig.primaryColor,
+                    borderRadius: BorderRadius.circular(10)),
+                child: DropdownButton<String>(
+                  elevation: 16,
+                  underline: Container(
+                    height: 0,
+                  ),
+                  dropdownColor: AppConfig.primaryColor,
+                  value: selectedYear,
+                  icon: const Icon(
+                    Icons.arrow_drop_down,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedYear = value!;
+                    });
+                  },
+                  isExpanded: true,
+                  items: listYears.map<DropdownMenuItem<String>>(
+                    (String value) {
+                      return DropdownMenuItem<String>(
+                        alignment: Alignment.center,
+                        value: value,
+                        child: Center(
+                          child: Text(
+                            value,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ).toList(),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                padding: const EdgeInsets.only(
+                    top: 8, bottom: 8, right: 10, left: 10),
+                decoration: BoxDecoration(
+                    color: AppConfig.primaryColor,
+                    borderRadius: BorderRadius.circular(10)),
+                child: DropdownButton<String>(
+                  elevation: 16,
+                  underline: Container(
+                    height: 0,
+                  ),
+                  dropdownColor: AppConfig.primaryColor,
+                  value: selectedMonth,
+                  icon: const Icon(
+                    Icons.arrow_drop_down,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedMonth = value!;
+                    });
+                  },
+                  isExpanded: true,
+                  items: listMonth.map<DropdownMenuItem<String>>(
+                    (String value) {
+                      return DropdownMenuItem<String>(
+                        alignment: Alignment.center,
+                        value: value,
+                        child: Center(
+                          child: Text(
+                            value,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ).toList(),
+                ),
+              ),
+              const SizedBox(
                 height: 15,
               ),
               ButtonDefault(
@@ -75,17 +166,14 @@ class _WalletPageState extends ModularState<WalletPage, WalletController> {
                 onPressed: () async {
                   final validate = _formKey.currentState?.validate() ?? false;
                   if (validate) {
-                    
-                    if (widget.wallet != null) {
-                      widget.wallet!.value = ValueUtil.convertStringToDouble(_valueEC.text);
-                      await controller.updateWallet(widget.wallet!);
-                      Navigator.of(context).pop();
-                    } else {
-                      await controller.registerWallet(Wallet(
-                          value:
-                              ValueUtil.convertStringToDouble(_valueEC.text)));
-                      Navigator.of(context).pushNamedAndRemoveUntil('/home/', (route) => false, arguments: widget.wallet ?? Wallet(value: ValueUtil.convertStringToDouble(_valueEC.text)) );        
-                    }
+                    await controller.save(
+                      Wallet(
+                        value: ValueUtil.convertStringToDouble(_valueEC.text),
+                        month: listMonth.indexOf(selectedMonth) + 1,
+                        year: int.parse(selectedYear),
+                      ),
+                    );
+                    Navigator.of(context).pop();
                   }
                 },
               )

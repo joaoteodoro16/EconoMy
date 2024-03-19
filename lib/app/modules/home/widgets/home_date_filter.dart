@@ -39,11 +39,12 @@ class _HomeDateFilterState extends State<_HomeDateFilter> {
                 dropdownColor: AppConfig.primaryColor,
                 value: selectedYear,
                 icon: const Icon(Icons.arrow_right, size: 15,color: Colors.white,),
-                onChanged: (value) {
+                onChanged: (value) async {
                   setState(() {
                     selectedYear = value!;
                   });
-                  widget.controller.setDateFilter(year: int.parse(selectedYear));
+                  await widget.controller.setDateFilter(year: int.parse(selectedYear));
+                  await widget.controller.setWalletValue();
                 },
                 items: listYears.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
@@ -69,7 +70,8 @@ class _HomeDateFilterState extends State<_HomeDateFilter> {
                         setState(() {
                           selectedMonth = index + 1;
                         });
-                        widget.controller.setDateFilter(month: selectedMonth);
+                        await widget.controller.setDateFilter(month: selectedMonth);
+                        await widget.controller.setWalletValue();
                       },
                       child: Container(
                         padding: const EdgeInsets.only(
@@ -80,7 +82,7 @@ class _HomeDateFilterState extends State<_HomeDateFilter> {
                                 : AppConfig.primaryColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: Text(
-                          listMonth[index],
+                          listMonth[index].substring(0,3),
                           style: const TextStyle(
                               color: Colors.white, fontSize: 15),
                         ),

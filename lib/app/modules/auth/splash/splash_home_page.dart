@@ -18,11 +18,7 @@ class _SplashAuthPageState extends State<SplashAuthPage> {
 
     reaction<bool?>((_) => widget._authController.userIsAuthenticated, (authenticate) {
       if(authenticate!= null && authenticate){
-        if(widget._authController.wallet !=null){
-            Modular.to.navigate('/home/', arguments: widget._authController.wallet);
-          } else{
-            Modular.to.navigate('/wallet/');
-          }
+        Modular.to.navigate('/home/');
       }else{
         Modular.to.navigate('/auth/login/');
       } 

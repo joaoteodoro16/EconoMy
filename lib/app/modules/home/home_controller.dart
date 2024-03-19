@@ -1,5 +1,6 @@
 import 'package:economy_v2/app/core/models/wallet.dart';
 import 'package:economy_v2/app/services/bill/bill_service.dart';
+import 'package:economy_v2/app/services/wallet/wallet_service.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../core/models/bill.dart';
@@ -11,8 +12,12 @@ class HomeController = HomeControllerBase with _$HomeController;
 
 abstract class HomeControllerBase with Store {
   final BillService _service;
+  final WalletService _walletService;
 
-  HomeControllerBase({required BillService service}) : _service = service;
+  HomeControllerBase(
+      {required BillService service, required WalletService walletService})
+      : _service = service,
+        _walletService = walletService;
 
   @observable
   List<Bill> _bills = [];
@@ -83,21 +88,28 @@ abstract class HomeControllerBase with Store {
   }
 
   @action
-  void setWalletValue(Wallet wallet) {
-    _wallet = wallet;
+  Future<void> setWalletValue() async {
+    try {
+      _wallet =
+          await _walletService.getByMonthAndYear(_yearFilter, _monthFilter);
+    } on Exception catch (e) {
+      Messages.alert(e.toString());
+    }
   }
 
   @action
-  void setDateFilter({int? year, int? month}) async {
+  Future<void> setDateFilter({int? year, int? month}) async {
     try {
       _bills = await _service.getByDateFilter(
           year ?? _yearFilter, month ?? _monthFilter);
-      _totalWallet = _wallet!.value;
-      calculateValues();
-
+      
       _monthFilter = month ?? _monthFilter;
       _yearFilter = year ?? _yearFilter;
+      
+      await setWalletValue();
+      _totalWallet = _wallet?.value ?? 0;
 
+      calculateValues();
     } on Exception catch (e) {
       Messages.alert(e.toString());
     }
