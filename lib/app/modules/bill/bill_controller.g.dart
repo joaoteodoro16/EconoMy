@@ -13,8 +13,9 @@ mixin _$BillController on BillControllerBase, Store {
       AsyncAction('BillControllerBase.createBill', context: context);
 
   @override
-  Future<void> createBill({required Bill bill}) {
-    return _$createBillAsyncAction.run(() => super.createBill(bill: bill));
+  Future<void> createBill({required Bill bill, required int repeatNum}) {
+    return _$createBillAsyncAction
+        .run(() => super.createBill(bill: bill, repeatNum: repeatNum));
   }
 
   late final _$updateBillAsyncAction =

@@ -36,15 +36,12 @@ class BillRepositoryImpl extends BillRepository {
       _db = await DB.instance.database;
 
       await _db.execute(
-          "INSERT INTO bill (description, value, expireIn, observation, category, discount,paidOut) VALUES (?,?,?,?,?,?,?)",
+          "INSERT INTO bill (description, value, expireIn, observation) VALUES (?,?,?,?)",
           [
             bill.description,
             bill.value.toString(),
             bill.expireIn.toIso8601String(),
-            bill.observation,
-            bill.category.id,
-            bill.discount,
-            0
+            bill.observation
           ]);
     } on Exception catch (e) {
       Logger().e("BillRepository - createBill ", error: e.toString());
@@ -74,9 +71,6 @@ class BillRepositoryImpl extends BillRepository {
             'value': bill.value.toString(),
             'expireIn': bill.expireIn.toIso8601String(),
             'observation': bill.observation,
-            'category': bill.category.id,
-            'discount' : bill.discount,
-            'paidOut': bill.paidOut
           },
           where: 'id = ?',
           whereArgs: [bill.id]);

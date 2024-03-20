@@ -8,11 +8,9 @@ class Bill {
    final int? id;
   final String description;
   final double value;
-  final DateTime expireIn;
+  DateTime expireIn;
   final String observation;
-  final Category category;
-  final double discount;
-  final int paidOut;
+
   
   Bill({
     this.id,
@@ -20,13 +18,9 @@ class Bill {
     required this.value,
     required this.expireIn,
     required this.observation,
-    required this.category,
-    required this.discount,
-    required this.paidOut,
+
   });
   
-  
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
@@ -34,9 +28,6 @@ class Bill {
       'value': value,
       'expireIn': expireIn.millisecondsSinceEpoch,
       'observation': observation,
-      'category': category.toMap(),
-      'discount': discount,
-      'paidOut': paidOut,
     };
   }
 
@@ -47,9 +38,6 @@ class Bill {
       value: map['value'] as double,
       expireIn: DateTime.parse(map['expireIn']),
       observation: map['observation'] as String,
-      category: Category.fromMap(map['category'] as Map<String,dynamic>),
-      discount: map['discount'] as double,
-      paidOut: map['paidOut'] as int,
     );
   }
 
@@ -60,9 +48,6 @@ class Bill {
       value: map['value'] as double,
       expireIn: DateTime.parse(map['expireIn']),
       observation: map['observation'] as String,
-      category: Category(id: map['category'] as int, color: "", name: ""),
-      discount: map['discount'] as double,
-      paidOut: map['paidOut'] as int,
     );
   }
 

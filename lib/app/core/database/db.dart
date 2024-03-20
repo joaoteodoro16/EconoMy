@@ -41,10 +41,7 @@ class DB {
       description TEXT NOT NULL,
       value REAL NOT NULL,
       expireIn DATETIME NOT NULL,
-      observation TEXT NOT NULL,
-      category INTEGER NOT NULL,
-      discount REAL NOT NULL,
-      paidOut INTEGER NOT NULL
+      observation TEXT NOT NULL
     );
   ''';
 

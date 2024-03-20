@@ -30,6 +30,7 @@ class _BillPageState extends ModularState<BillPage, BillController> {
   var _obsEC = TextEditingController();
   var _dateEC = TextEditingController();
   var _discountEC = TextEditingController();
+  final _repeatEC = TextEditingController();
 
   @override
   void initState() {
@@ -41,14 +42,14 @@ class _BillPageState extends ModularState<BillPage, BillController> {
       _obsEC = TextEditingController(text: bill.observation);
       _dateEC = TextEditingController(
           text: DateUtil.convertDateTimeFromPTBR(bill.expireIn));
-      _discountEC = TextEditingController(
-          text: ValueUtil.convertDoubleToString(bill.discount));
     } else {
       _dateEC = TextEditingController(
           text: DateUtil.convertDateTimeFromPTBR(DateTime.now()));
-      _discountEC = TextEditingController(
-          text: ValueUtil.convertDoubleToString(0));
+      _discountEC =
+          TextEditingController(text: ValueUtil.convertDoubleToString(0));
     }
+    _repeatEC.text = "1";
+
     super.initState();
   }
 
@@ -61,7 +62,6 @@ class _BillPageState extends ModularState<BillPage, BillController> {
     _discountEC.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,8 @@ class _BillPageState extends ModularState<BillPage, BillController> {
                 if (widget.billUpdate != null) {
                   await controller.updateBill(bill: bill);
                 } else {
-                  await controller.createBill(bill: bill);
+                  await controller.createBill(
+                      bill: bill, repeatNum: int.parse(_repeatEC.text));
                 }
                 Navigator.of(context).pop();
               }
@@ -121,23 +122,6 @@ class _BillPageState extends ModularState<BillPage, BillController> {
                   Validatorless.required('Campo obrigatório')
                 ]),
               ),
-              // const SizedBox(
-              //   height: 10,
-              // ),
-              //  TextFormFieldDefault(
-              //   label: 'Desconto R\$',
-              //   inputFormatters: [
-              //     FilteringTextInputFormatter.digitsOnly,
-              //     CentavosInputFormatter(),
-              //   ],
-              //   icon: Icons.attach_money_outlined,
-              //   backgroundWhite: true,
-              //   controller: _discountEC,
-              //   type: const TextInputType.numberWithOptions(),
-              //   validator: Validatorless.multiple([
-              //     Validatorless.min(0, 'Informe um desconto correto'),
-              //   ]),
-              // ),
               const SizedBox(
                 height: 10,
               ),
@@ -158,6 +142,25 @@ class _BillPageState extends ModularState<BillPage, BillController> {
                       100, 'Número máximo de caracteres excedidos (100)'),
                 ]),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              widget.billUpdate == null
+                  ? TextFormFieldDefault(
+                      label: 'Repetir quantas vezes?',
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
+                      icon: Icons.repeat,
+                      backgroundWhite: true,
+                      controller: _repeatEC,
+                      type: const TextInputType.numberWithOptions(),
+                      validator: Validatorless.multiple([
+                        Validatorless.min(0, 'Informe um valor correto'),
+                        Validatorless.required('Campo obrigatório')
+                      ]),
+                    )
+                  : const SizedBox.shrink(),
             ],
           ),
         ),
@@ -165,16 +168,12 @@ class _BillPageState extends ModularState<BillPage, BillController> {
     );
   }
 
-  Bill _fillObjectBill(){
+  Bill _fillObjectBill() {
     return Bill(
-                  id: widget.billUpdate?.id,
-                  description: _descriptionEC.text,
-                  value: ValueUtil.convertStringToDouble(_valueEC.text),
-                  expireIn: DateUtil.convertStringToDate(_dateEC.text),
-                  observation: _obsEC.text,
-                  category: Category(id: 01, name: 'Animais', color: '#f'),
-                  discount: ValueUtil.convertStringToDouble(_discountEC.text == "" ? "0,00" : _discountEC.text),
-                  paidOut: widget.billUpdate?.paidOut ?? 0
-                );
+        id: widget.billUpdate?.id,
+        description: _descriptionEC.text,
+        value: ValueUtil.convertStringToDouble(_valueEC.text),
+        expireIn: DateUtil.convertStringToDate(_dateEC.text),
+        observation: _obsEC.text);
   }
 }

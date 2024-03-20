@@ -27,8 +27,6 @@ class _BillFormState extends State<_BillForm> {
       _obsEC = TextEditingController(text: bill.observation);
       _dateEC = TextEditingController(
           text: DateUtil.convertDateTimeFromPTBR(bill.expireIn));
-      _discountEC = TextEditingController(
-          text: ValueUtil.convertDoubleToString(bill.discount));
     } else {
       _dateEC = TextEditingController(
           text: DateUtil.convertDateTimeFromPTBR(DateTime.now()));

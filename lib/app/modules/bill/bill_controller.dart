@@ -14,9 +14,9 @@ abstract class BillControllerBase with Store {
   BillControllerBase({required BillService service}) : _service = service;
 
   @action
-  Future<void> createBill({required Bill bill}) async {
+  Future<void> createBill({required Bill bill, required int repeatNum}) async {
     try {
-      await _service.createBill(bill: bill);
+      await _service.createBill(bill: bill, repeatNum: repeatNum);
       Messages.success("Despesa cadastrada com sucesso!");
     } on Exception catch (e) {
       Messages.alert(e.toString());
