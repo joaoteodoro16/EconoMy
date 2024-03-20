@@ -1,5 +1,4 @@
 import 'package:brasil_fields/brasil_fields.dart';
-import 'package:economy_v2/app/core/models/category.dart';
 import 'package:economy_v2/app/core/utils/ValueUtil.dart';
 import 'package:economy_v2/app/core/widgets/text_form_field_default.dart';
 import 'package:economy_v2/app/modules/bill/bill_controller.dart';

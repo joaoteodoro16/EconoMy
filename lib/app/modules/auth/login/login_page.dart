@@ -3,7 +3,6 @@ import 'package:economy_v2/app/core/widgets/button_default.dart';
 import 'package:economy_v2/app/modules/auth/login/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import '../../../core/widgets/text_form_field_default.dart';
 import 'package:validatorless/validatorless.dart';
 

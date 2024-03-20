@@ -1,4 +1,3 @@
-import 'package:asuka/core/consts.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:economy_v2/app/core/app_config.dart';
 import 'package:economy_v2/app/core/constants.dart';

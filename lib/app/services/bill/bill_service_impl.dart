@@ -1,5 +1,4 @@
 import 'package:economy_v2/app/core/models/bill.dart';
-import 'package:economy_v2/app/core/utils/DateUtil.dart';
 import 'package:economy_v2/app/repositories/bill/bill_repository.dart';
 
 import './bill_service.dart';
