@@ -1,16 +1,11 @@
-# economy_v2
+# Economy 📜
 
-A new Flutter project.
+Projeto de controle financeiro realizado em Flutter utilizando Mobx, SqFlite, Firebase, Modular e Design Patters
 
-## Getting Started
+Flutter Versão: 3.16.5
 
-This project is a starting point for a Flutter application.
+Recentemente tenho me dedicado ao estudo de Gerenciadores de Estado e Dependências em Flutter, o que me levou a construir um aplicativo pessoal para controle financeiro. A ideia surgiu da necessidade de um sistema que me auxiliasse no controle dos meus gastos mensais, proporcionando uma visão clara do saldo restante após as despesas, de maneira simples e eficaz.
 
-A few resources to get you started if this is your first Flutter project:
+Para concretizar esse projeto, optei por utilizar o MobX para o gerenciamento de estado, o Modular para gerenciamento de rotas, o SQFlite para persistência de dados e integrei a autenticação via e-mail do Firebase. Além disso, busquei aplicar conceitos de clean code e padrões de design para garantir a qualidade e manutenibilidade do código.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+O resultado foi um aplicativo que atende às minhas necessidades e ainda me proporcionou uma oportunidade valiosa para aprimorar minhas habilidades de desenvolvimento em Flutter, bem como minha compreensão sobre a importância de uma arquitetura bem definida e o uso de ferramentas adequadas para cada aspecto do desenvolvimento de software.
